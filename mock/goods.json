@@ -5,120 +5,127 @@
     {
       "productId":"100001",
       "productName":"蓝牙音箱",
-      "productPrice":"99",
+      "productPrice":99,
       "productImg":"1.jpg",
       "productUrl":""
     },
     {
       "productId":"100002",
       "productName":"蓝牙耳机",
-      "productPrice":"69",
+      "productPrice":69,
       "productImg":"2.jpg",
       "productUrl":""
     },
     {
       "productId":"100003",
       "productName":"红色头戴式耳机",
-      "productPrice":"299",
+      "productPrice":299,
       "productImg":"3.jpg",
       "productUrl":""
     },
     {
       "productId":"100004",
       "productName":"黑色头戴式耳机",
-      "productPrice":"199",
+      "productPrice":199,
       "productImg":"4.jpg",
       "productUrl":""
     },
     {
       "productId":"100004",
       "productName":"黑色头戴式耳机",
-      "productPrice":"199",
+      "productPrice":199,
       "productImg":"4.jpg",
       "productUrl":""
     },
     {
       "productId":"100005",
       "productName":"充电宝",
-      "productPrice":"149",
+      "productPrice":149,
       "productImg":"5.jpg",
       "productUrl":""
     },
     {
       "productId":"100006",
       "productName":"小米插线板",
-      "productPrice":"79",
+      "productPrice":79,
       "productImg":"6.jpg",
       "productUrl":""
     },
     {
       "productId":"100007",
       "productName":"小米青春耳机",
-      "productPrice":"29",
+      "productPrice":29,
       "productImg":"7.jpg",
       "productUrl":""
     },
     {
       "productId":"100008",
       "productName":"景气净化器",
-      "productPrice":"699",
+      "productPrice":699,
       "productImg":"8.jpg",
       "productUrl":""
     },
     {
       "productId":"100009",
       "productName":"电饭煲",
-      "productPrice":"299",
+      "productPrice":299,
       "productImg":"9.jpg",
       "productUrl":""
     },
     {
       "productId":"100010",
       "productName":"小米电视55’",
-      "productPrice":"2999",
+      "productPrice":2999,
       "productImg":"10.jpg",
       "productUrl":""
     },
     {
       "productId":"100011",
       "productName":"女式入耳式耳机",
-      "productPrice":"39",
+      "productPrice":39,
       "productImg":"11.jpg",
       "productUrl":""
     },
     {
       "productId":"100012",
       "productName":"白头戴式耳机",
-      "productPrice":"199",
+      "productPrice":199,
       "productImg":"12.jpg",
       "productUrl":""
     },
     {
       "productId":"100013",
       "productName":"橙色音箱",
-      "productPrice":"129",
+      "productPrice":129,
       "productImg":"13.jpg",
       "productUrl":""
     },
     {
       "productId":"100014",
       "productName":"紫色音箱",
-      "productPrice":"129",
+      "productPrice":129,
       "productImg":"14.jpg",
       "productUrl":""
     },
     {
       "productId":"100015",
       "productName":"数据线",
-      "productPrice":"19",
+      "productPrice":19,
       "productImg":"15.jpg",
       "productUrl":""
     },
     {
       "productId":"100016",
       "productName":"红色头戴式耳机",
-      "productPrice":"199",
+      "productPrice":199,
       "productImg":"16.jpg",
+      "productUrl":""
+    },
+    {
+      "productId":"100017",
+      "productName":"小米平衡车",
+      "productPrice":1999,
+      "productImg":"pingheng.jpg",
       "productUrl":""
     }
   ]
