@@ -181,7 +181,8 @@
         addCart(productId){
             axios.post("/goods/addCart",{
               productId:productId
-            }).then((res)=>{
+            }).then((response)=>{
+              let res = response.data;
               if (res.status===0){
                 this.mdShow =true;
               }else {
