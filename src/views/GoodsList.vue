@@ -49,7 +49,24 @@
         </div>
       </div>
     </div>
-    <div class="md-overlay" v-show="overLayFlag" @click="closePop"></div>
+   <!--
+
+    -->
+    <modal :mdShow="mdShow" @close="closeModal()">
+      <p slot="message">请先登录</p>
+      <div slot="btnGroup"><a href="javascript:;" class="btn btn--m" @click="mdShow = false">关闭</a></div>
+    </modal>
+    <modal :mdShow="mdShowCart" @close="closeModal()">
+      <p slot="message">
+        <svg class="icon-status-ok">
+          <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-status-ok"></use>
+        </svg>
+        <span>加入购物车成功！</span>
+      </p>
+      <div slot="btnGroup"><a href="javascript:;" class="btn btn--m" @click="mdShowCart = false">继续购物</a>
+      <router-link href="javascript:;" class="btn btn--m" to="/cart">查看购物车</router-link>
+      </div>
+    </modal>
     <nav-footer></nav-footer>
   </div>
 </template>
@@ -60,6 +77,7 @@
   import NavHeader from '@/components/NavHeader'
   import NavFooter from '@/components/NavFooter'
   import NavBread from '@/components/NavBread'
+  import Modal from './../components/Modal'
   import axios from 'axios'
     export default {
         name: "goods-list",
@@ -71,6 +89,8 @@
             pageSize:8,
             busy:true,
             loading:false,
+            mdShow:false,
+            mdShowCart:false,
             priceFilter:[
               {
                 startPrice:'0.00',
@@ -97,7 +117,8 @@
       components:{
           NavHeader,
           NavFooter,
-          NavBread
+          NavBread,
+          Modal
       },
       mounted:function () {
           this.getGoodsList();
@@ -111,7 +132,7 @@
               priceLevel:this.priceChecked
             };
             this.loading = true;
-            axios.get("/goods",{params:param}).then((result)=>{
+            axios.get("/goods/list",{params:param}).then((result)=>{
               let res = result.data;
               this.loading = false;
               if (res.status=="0"){
@@ -161,12 +182,15 @@
             axios.post("/goods/addCart",{
               productId:productId
             }).then((res)=>{
-              if (res.status==0){
-                alert("add success!")
+              if (res.status===0){
+                this.mdShow =true;
               }else {
-                alert("default!")
+                this.mdShowCart =true;
               }
             });
+        },
+        closeModal(){
+          this.mdShow = false;
         }
       }
     }
@@ -178,4 +202,5 @@
   line-height: 100px;
   text-align: center;
 }
+
 </style>

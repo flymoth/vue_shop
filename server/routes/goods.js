@@ -13,7 +13,7 @@ mongoose.connection.on("disconnected",()=>{
   console.log("MongoDB connected disconnected.")
 });
 //查询商品列表数据
-router.get("/",(req,res,next)=>{
+router.get("/list",(req,res,next)=>{
   let page = parseInt(req.param("page"));
   let pageSize = parseInt(req.param("pageSize"));
   let priceLevel = req.param("priceLevel");
@@ -37,8 +37,8 @@ router.get("/",(req,res,next)=>{
   }
   let goodsModel = Goods.find(params).skip(skip).limit(pageSize);
   goodsModel.sort({'productPrice':sort});
-  goodsModel.exec((err,doc)=>{
-    if (err){
+  goodsModel.exec((err0,doc)=>{
+    if (err0){
       res.json({
         status:'1',
         msg:err.message
@@ -84,9 +84,9 @@ router.post("/addCart",(req,res,next)=>{
               })
             }else{
               res.json({
-                status:'0',
-                msg:'',
-                result:'suc'
+                status:"0",
+                msg:"加入成功",
+                result:"success"
               })
             }
           })
@@ -110,9 +110,9 @@ router.post("/addCart",(req,res,next)=>{
                     })
                   }else{
                     res.json({
-                      status:'0',
-                      msg:'',
-                      result:'suc'
+                      status:"0",
+                      msg:"加入成功！",
+                      result:"success"
                     })
                   }
                 })
