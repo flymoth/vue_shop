@@ -2,22 +2,22 @@
   <div>
     <nav-header></nav-header>
     <nav-bread>
-      <span>Goods</span>
+      <span>商品</span>
     </nav-bread>
     <div class="accessory-result-page accessory-page">
       <div class="container">
         <div class="filter-nav">
-          <span class="sortby">Sort by:</span>
-          <a href="javascript:void(0)" class="default cur">Default</a>
-          <a href="javascript:void(0)" @click="sortGoods" class="price">Price <svg class="icon icon-arrow-short"><use xlink:href="#icon-arrow-short"></use></svg></a>
+          <span class="sortby">排序方式:</span>
+          <a href="javascript:void(0)" class="default cur">默认</a>
+          <a href="javascript:void(0)" @click="sortGoods" class="price">价格 <svg class="icon icon-arrow-short"><use xlink:href="#icon-arrow-short"></use></svg></a>
           <a href="javascript:void(0)" class="filterby stopPop" @click="showFilterPop">Filter by</a>
         </div>
         <div class="accessory-result">
           <!-- filter -->
           <div class="filter stopPop" id="filter" :class="{'filterby-show':filterBy}">
             <dl class="filter-price">
-              <dt>Price:</dt>
-              <dd><a href="javascript:void(0)" :class="{'cur':priceChecked=='all'}" @click="priceChecked='all'">All</a></dd>
+              <dt>价格:</dt>
+              <dd><a href="javascript:void(0)" :class="{'cur':priceChecked=='all'}" @click="priceChecked='all'">所有</a></dd>
               <dd v-for="(price,index) in priceFilter">
                 <a href="javascript:void(0)" @click="setPriceFilter(index)" :class="{'cur':priceChecked==index}">{{price.startPrice}} - {{price.endPrice}}</a>
               </dd>
@@ -52,11 +52,11 @@
    <!--
 
     -->
-    <modal :mdShow="mdShow" @close="closeModal()">
+    <modal :mdShow="mdShow" @close="closeModal">
       <p slot="message">请先登录</p>
       <div slot="btnGroup"><a href="javascript:;" class="btn btn--m" @click="mdShow = false">关闭</a></div>
     </modal>
-    <modal :mdShow="mdShowCart" @close="closeModal()">
+    <modal :mdShow="mdShowCart" @close="closeModal">
       <p slot="message">
         <svg class="icon-status-ok">
           <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-status-ok"></use>
@@ -135,10 +135,10 @@
             axios.get("/goods/list",{params:param}).then((result)=>{
               let res = result.data;
               this.loading = false;
-              if (res.status=="0"){
+              if (res.status==="0"){
                 if(flag){
                   this.goodsList = this.goodsList.concat(res.result.list);
-                  if(res.result.count==0){
+                  if(res.result.count===0){
                     this.busy = true;
                   }else {
                     this.busy = false;
@@ -183,10 +183,10 @@
               productId:productId
             }).then((response)=>{
               let res = response.data;
-              if (res.status===0){
-                this.mdShow =true;
-              }else {
+              if (res.status==="0"){
                 this.mdShowCart =true;
+              }else {
+                this.mdShow =true;
               }
             });
         },

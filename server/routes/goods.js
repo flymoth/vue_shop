@@ -72,7 +72,7 @@ router.post("/addCart",(req,res,next)=>{
         userDoc.cartList.forEach((item)=>{
           if(item.productId == productId){
             goodsItem =item;
-            item.productNum++;
+            item.productNum ++;
           }
         });
         if (goodsItem){

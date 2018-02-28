@@ -5,6 +5,7 @@ let User = require('./../models/user');
 router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 });
+//登录
 router.post("/login",(req,res,next)=>{
   let param = {
     userName:req.body.userName,
@@ -36,7 +37,7 @@ router.post("/login",(req,res,next)=>{
     }
   })
 });
-
+//登出
 router.post("/logout",(req,res,next)=>{
   res.cookie("userId","",{
     path:'/',
@@ -47,8 +48,8 @@ router.post("/logout",(req,res,next)=>{
     msg:'',
     result:''
   })
-})
-
+});
+//登录拦截
 router.get("/checkLogin",(req,res,next)=>{
   if(req.cookies.userId){
     res.json({
@@ -63,5 +64,56 @@ router.get("/checkLogin",(req,res,next)=>{
       result:''
     });
   }
-})
+});
+//获取购物车数据
+router.get("/cartList",(req,res,next)=>{
+  let userId = req.cookies.userId;
+  User.findOne({userId:userId},function (err,doc) {
+    if (err){
+      res.json({
+        status:'1',
+        msg:err.message,
+        result:''
+      })
+    }else {
+      if(doc){
+        res.json({
+          status:'0',
+          msg:'',
+          result:doc.cartList
+        });
+      }
+    }
+  })
+});
+//删除购物车商品
+router.post("/cartDel",function (req,res,next) {
+  let userId = req.cookies.userId,productId = req.body.productId;
+  User.update(
+    {
+      userId:userId
+    },
+    {
+      $pull:{
+      'cartList':{
+        'productId':productId
+      }
+    }
+    },function (err,doc) {
+      if(err){
+        res.json({
+          status:'1',
+          msg:err.message,
+          result:''
+        })
+      }else{
+        res.json({
+          status:'0',
+          msg:'',
+          result:'success'
+        })
+      }
+    }
+  )
+});
 module.exports = router;
