@@ -34,7 +34,7 @@
                   </div>
                   <div class="main">
                     <div class="name">{{item.productName}}</div>
-                    <div class="price">¥：{{item.productPrice}}</div>
+                    <div class="price">{{item.productPrice | currency('¥')}}</div>
                     <div class="btn-area">
                       <a href="javascript:;" class="btn btn--m" @click="addCart(item.productId)">加入购物车</a>
                     </div>
@@ -91,22 +91,23 @@
             loading:false,
             mdShow:false,
             mdShowCart:false,
+            mdShowAbout:false,
             priceFilter:[
               {
-                startPrice:'0.00',
-                endPrice:'100.00'
+                startPrice:'¥0.00',
+                endPrice:'¥100.00'
               },
               {
-                startPrice:'100.00',
-                endPrice:'500.00'
+                startPrice:'¥100.00',
+                endPrice:'¥500.00'
               },
               {
-                startPrice:'500.00',
-                endPrice:'1000.00'
+                startPrice:'¥500.00',
+                endPrice:'¥1000.00'
               },
               {
-                startPrice:'1000.00',
-                endPrice:'5000.00'
+                startPrice:'¥1000.00',
+                endPrice:'¥5000.00'
               },
             ],
             priceChecked:'all',

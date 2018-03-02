@@ -57,7 +57,7 @@ router.get("/list",(req,res,next)=>{
 });
 //加入购物车
 router.post("/addCart",(req,res,next)=>{
-  let userId = "00001",productId = req.body.productId;
+  let userId = "000001",productId = req.body.productId;
   let User = require('../models/user');
   User.findOne({userId:userId},(err,userDoc)=>{
     if(err){
@@ -100,7 +100,7 @@ router.post("/addCart",(req,res,next)=>{
             }else{
               if(doc){
                 doc.productNum = 1;
-                doc.checked = 1;
+                doc.checked = 'true';
                 userDoc.cartList.push(doc);
                 userDoc.save((err2,doc2)=>{
                   if(err2){

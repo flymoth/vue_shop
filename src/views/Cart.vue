@@ -62,7 +62,7 @@
             <li v-for="item in cartList">
               <div class="cart-tab-1">
                 <div class="cart-item-check">
-                  <a href="javascipt:;" class="checkbox-btn item-check-btn">
+                  <a href="javascipt:;" class="checkbox-btn item-check-btn" :class="{'check':item.checked =='true'}" @click="editCart('checked',item)">
                     <svg class="icon icon-ok">
                       <use xlink:href="#icon-ok"></use>
                     </svg>
@@ -76,21 +76,21 @@
                 </div>
               </div>
               <div class="cart-tab-2">
-                <div class="item-price">{{item.productPrice}}</div>
+                <div class="item-price">{{item.productPrice | currency('¥')}}</div>
               </div>
               <div class="cart-tab-3">
                 <div class="item-quantity">
                   <div class="select-self select-self-open">
                     <div class="select-self-area">
-                      <a class="input-sub">-</a>
+                      <a class="input-sub" @click="editCart('-',item)">-</a>
                       <span class="select-ipt">{{item.productNum}}</span>
-                      <a class="input-add">+</a>
+                      <a class="input-add" @click="editCart('+',item)">+</a>
                     </div>
                   </div>
                 </div>
               </div>
               <div class="cart-tab-4">
-                <div class="item-price-total">{{item.productPrice * item.productNum}}</div>
+                <div class="item-price-total">{{item.productPrice * item.productNum | currency('¥')}}</div>
               </div>
               <div class="cart-tab-5">
                 <div class="cart-item-opration">
@@ -109,8 +109,8 @@
         <div class="cart-foot-inner">
           <div class="cart-foot-l">
             <div class="item-all-check">
-              <a href="javascipt:;">
-                  <span class="checkbox-btn item-check-btn">
+              <a href="javascipt:;" @click="toggleCheckAll">
+                  <span class="checkbox-btn item-check-btn" :class="{'check':checkAllFlag}">
                       <svg class="icon icon-ok"><use xlink:href="#icon-ok"/></svg>
                   </span>
                 <span>全选</span>
@@ -119,7 +119,7 @@
           </div>
           <div class="cart-foot-r">
             <div class="item-total">
-              共计: <span class="total-price">500</span>
+              共计: <span class="total-price">{{totalPrice | currency('¥')}}</span>
             </div>
             <div class="btn-wrap">
               <a class="btn btn--red">结算</a>
@@ -147,7 +147,8 @@
   import NavBread from '@/components/NavBread'
   import Modal from './../components/Modal'
   import axios from 'axios'
-    export default {
+
+  export default {
         name: "cart",
       data(){
           return{
@@ -155,6 +156,27 @@
             productId:'',
             modalConfirm:false
           }
+      },
+      computed:{
+          checkAllFlag(){
+            return this.checkedCount === this.cartList.length
+          },
+        checkedCount(){
+            let i = 0;
+            this.cartList.forEach((item)=>{
+              if(item.checked ==='true') i++
+            });
+          return i;
+        },
+        totalPrice(){
+          let money = 0;
+          this.cartList.forEach((item)=>{
+            if(item.checked ==='true') {
+              money +=parseFloat(item.productPrice)*parseInt(item.productNum)
+            }
+          });
+          return money;
+        }
       },
       mounted(){
           this.init()
@@ -180,7 +202,7 @@
             this.modalConfirm = true;
         },
         delItem(){
-            axios.post("users/cartDel",{
+            axios.post("/users/cartDel",{
               productId:this.productId
             }).then((response)=>{
               let res = response.data;
@@ -189,6 +211,39 @@
                 this.init()
               }
             })
+        },
+        editCart(flag,item){
+            if (flag === '+'){
+              item.productNum++
+            }else if(flag === '-'){
+              if(item.productNum<=1){
+                return
+              }
+              item.productNum--
+            }else {
+              item.checked = item.checked === "true"?'false':'true';
+            }
+            axios.post("/users/cartEdit",{
+              productId:item.productId,
+              productNum:item.productNum,
+              checked:item.checked
+            }).then((response)=>{
+              let res = response.data;
+            })
+        },
+        toggleCheckAll(){
+            let flag = !this.checkAllFlag;
+            this.cartList.forEach((item)=>{
+              item.checked = flag?'true':'false'
+            })
+          axios.post("/users/editCheckAll",{
+            checkAll:flag
+          }).then((response)=>{
+            let res = response.data;
+            if (res.status === '0'){
+              console.log('update success')
+            }
+          })
         }
       }
     }

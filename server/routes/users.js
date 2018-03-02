@@ -116,5 +116,64 @@ router.post("/cartDel",function (req,res,next) {
     }
   )
 });
-//
+//编辑购物车商品数量
+router.post("/cartEdit",function (req,res,next) {
+  let userId = req.cookies.userId,
+    productId = req.body.productId,
+    productNum = req.body.productNum,
+    checked = req.body.checked;
+  User.update({"userId":userId,"cartList.productId":productId},{
+    "cartList.$.productNum":productNum,
+    "cartList.$.checked":checked
+  },function (err,doc) {
+    if(err){
+      res.json({
+        status:'1',
+        msg:err.message,
+        result:''
+      })
+    }else{
+      res.json({
+        status:'0',
+        msg:'',
+        result:'success'
+      })
+    }
+  })
+});
+//购物车全选
+router.post("/editCheckAll",function (req,res,next) {
+  let userId = req.cookies.userId,
+    checkAll = req.body.checkAll;
+  User.findOne({userId:userId},function (err,user) {
+    if(err){
+      res.json({
+        status:'1',
+        msg:err.message,
+        result:''
+      })
+    }else{
+      if(user){
+        user.cartList.forEach((item)=>{
+          item.checked = checkAll;
+        })
+        user.save(function (err1,doc) {
+          if(err1){
+            res.json({
+              status:'1',
+              msg:err1.message,
+              result:''
+            })
+          }else{
+            res.json({
+              status:'0',
+              msg:'',
+              result:'success'
+            })
+          }
+        })
+      }
+    }
+  })
+})
 module.exports = router;
