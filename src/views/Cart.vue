@@ -208,18 +208,21 @@
               let res = response.data;
               if (res.status === '0'){
                 this.modalConfirm = false;
-                this.init()
+                this.init();
+                this.$store.commit("updateCartCount",-this.delItem.productNum);
               }
             })
         },
         editCart(flag,item){
             if (flag === '+'){
-              item.productNum++
+              item.productNum++;
+              this.$store.commit("updateCartCount",+1);
             }else if(flag === '-'){
               if(item.productNum<=1){
                 return
               }
-              item.productNum--
+              item.productNum--;
+              this.$store.commit("updateCartCount",-1);
             }else {
               item.checked = item.checked === "true"?'false':'true';
             }
