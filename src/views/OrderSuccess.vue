@@ -59,8 +59,7 @@ export default {
   components: {
     NavHeader,
     NavBread,
-    NavFooter,
-    Modal
+    NavFooter
   },
 
   computed: {},
