@@ -1,5 +1,5 @@
 # vue_shop
-
+# 毕业设计做的东西，写得有点乱。。。。。。
 > A Vue.js project
 
 ## Build Setup
